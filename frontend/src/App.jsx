@@ -5,6 +5,8 @@ import { verifyToken } from './features/auth/authSlice';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Layout from './components/Layout';
+import FtpServers from './pages/FtpServers';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,7 +26,16 @@ const App = () => {
       <Routes>
         <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
         <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
+      
+      
+        <Route path="/" element={<Layout />}>
+
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/ftpservers" element={user ? <FtpServers /> : <Navigate to="/login" />} />
+
+        </Route>
+
+      
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

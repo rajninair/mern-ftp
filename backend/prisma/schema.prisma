@@ -19,6 +19,11 @@ model User {
   email    String   @unique
   password String
   todos    Todo[]
+  ftpServers  FtpServers[] // One-to-Many relationship
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
 
 model Todo {
@@ -27,4 +32,22 @@ model Todo {
   content String
   userId  Int
   user    User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+
+model FtpServers {
+  id           Int    @id @default(autoincrement())
+  sftpHostName String
+  sftpHostIP   String
+  sftpUsername String
+  sftpPassword String
+  sftpPort     Int
+  createdBy    Int
+  user         User     @relation(fields: [createdBy], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }

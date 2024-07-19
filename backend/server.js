@@ -82,6 +82,7 @@ app.post('/logout', (req, res) => {
 
 
 // CRUD routes for todos
+
 app.get('/todos', checkAuth, async (req, res) => {
   const todos = await prisma.todo.findMany({ where: { userId: req.userId } });
   res.json(todos);
@@ -113,5 +114,84 @@ app.delete('/todos/:id', checkAuth, async (req, res) => {
   await prisma.todo.delete({ where: { id: Number(id) } });
   res.json({ message: "Todo deleted" });
 });
+
+
+
+// CRUD routes for FTP servers
+
+// Fetch all FTP servers
+app.get('/ftpservers', checkAuth, async (req, res) => {
+  try {
+    const ftpServers = await prisma.ftpServers.findMany();
+    res.json(ftpServers);
+  } catch (error) {
+    console.log("Error fetching server", error)
+
+    res.status(500).json({ error: 'Failed to fetch FTP servers' });
+  }
+});
+
+// Create a new FTP server
+app.post('/ftpservers', checkAuth, async (req, res) => {
+  const { sftpHostName, sftpHostIP, sftpUsername, sftpPassword, sftpPort } = req.body;
+
+  try {
+    const ftpServer = await prisma.ftpServers.create({
+      data: {
+        sftpHostName,
+        sftpHostIP,
+        sftpUsername,
+        sftpPassword,
+        sftpPort,
+        createdBy: req.userId,  // use the user ID from the authenticated user
+      },
+    });
+
+    res.json(ftpServer);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while creating the FTP server' });
+  }
+});
+
+
+// Update an FTP server
+app.put('/ftpservers/:id', checkAuth, async (req, res) => {
+  const { id } = req.params;
+  const { sftpHostName, sftpHostIP, sftpUsername, sftpPassword, sftpPort } = req.body;
+
+  try {
+    const ftpServer = await prisma.ftpServers.update({
+      where: { id: Number(id) },
+      data: {
+        sftpHostName,
+        sftpHostIP,
+        sftpUsername,
+        sftpPassword,
+        sftpPort,
+      },
+    });
+
+    res.json(ftpServer);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while updating the FTP server' });
+  }
+});
+
+
+// Delete an FTP server
+app.delete('/ftpservers/:id', checkAuth, async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.ftpServers.delete({ where: { id: Number(id) } });
+    res.json({ message: "FTP server deleted" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while deleting the FTP server' });
+  }
+});
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
