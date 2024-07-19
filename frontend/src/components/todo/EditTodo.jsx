@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTodo } from '../features/todos/todosSlice';
+import { updateTodo } from '../../features/todos/todosSlice';
 
 const EditTodo = ({ todo, cancelEdit }) => {
   const dispatch = useDispatch();

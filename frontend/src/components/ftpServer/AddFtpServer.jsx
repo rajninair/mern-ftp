@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addFtpServer } from '../features/ftpservers/ftpserverSlice';
+import { addFtpServer } from '../../features/ftpservers/ftpserverSlice';
 
 const AddFtpServer = () => {
   const dispatch = useDispatch();

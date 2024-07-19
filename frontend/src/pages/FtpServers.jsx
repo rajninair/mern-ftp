@@ -1,4 +1,4 @@
-import FtpServerList from '../components/FtpServerList';
+import FtpServerList from "../components/ftpServer/FtpServerList";
 
 const FtpServers = () => {
   return <div>

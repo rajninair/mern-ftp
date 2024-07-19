@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFtpServers } from '../features/ftpservers/ftpserverSlice';
-import FtpServerItem from './FtpServerItem';
+import { fetchFtpServers } from '../../features/ftpservers/ftpserverSlice';
+
 import AddFtpServer from './AddFtpServer';
+import FtpServerItem from './FtpServerItem';
 
 const FtpServerList = () => {
+
   const dispatch = useDispatch();
   const ftpServers = useSelector((state) => state.ftpservers.ftpServers);
 
   useEffect(() => {
     dispatch(fetchFtpServers());
   }, [dispatch]);
+
 
   return (
     <div>
@@ -24,6 +27,10 @@ const FtpServerList = () => {
       {ftpServers.map((ftpServer) => (
         <FtpServerItem key={ftpServer.id} ftpServer={ftpServer} />
       ))}
+
+      <hr />
+
+
     </div>
   );
 };

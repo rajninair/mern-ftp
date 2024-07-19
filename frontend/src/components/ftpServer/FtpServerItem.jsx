@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteFtpServer } from '../features/ftpservers/ftpserverSlice';
+import { deleteFtpServer } from '../../features/ftpservers/ftpserverSlice';
 import EditFtpServer from './EditFtpServer';
 
 const FtpServerItem = ({ ftpServer }) => {
