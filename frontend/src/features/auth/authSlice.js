@@ -2,17 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
 
 export const login = createAsyncThunk('auth/login', async ({ email, password }) => {
-  const response = await api.post('/login', { email, password });
+  const response = await api.post('/auth/login', { email, password });
   return response.data;
 });
 
 export const signup = createAsyncThunk('auth/signup', async ({ email, password }) => {
-  const response = await api.post('/signup', { email, password });
+  const response = await api.post('/auth/signup', { email, password });
   return response.data;
 });
 
 export const verifyToken = createAsyncThunk('auth/verifyToken', async () => {
-  const response = await api.get('/verify-token');
+  const response = await api.get('/auth/verify-token');
   return response.data;
 });
 
